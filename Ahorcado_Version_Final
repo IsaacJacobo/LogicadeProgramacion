@@ -35,6 +35,74 @@ def obtener_palabra(nivel):
     else:
         return None
 
+def mostrar_ahorcado(intentos):
+    etapas = [
+        """
+           -----
+           |   |
+               |
+               |
+               |
+               |
+        ---------
+        """,
+        """
+           -----
+           |   |
+           O   |
+               |
+               |
+               |
+        ---------
+        """,
+        """
+           -----
+           |   |
+           O   |
+           |   |
+               |
+               |
+        ---------
+        """,
+        """
+           -----
+           |   |
+           O   |
+          /|   |
+               |
+               |
+        ---------
+        """,
+        """
+           -----
+           |   |
+           O   |
+          /|\  |
+               |
+               |
+        ---------
+        """,
+        """
+           -----
+           |   |
+           O   |
+          /|\  |
+          /    |
+               |
+        ---------
+        """,
+        """
+           -----
+           |   |
+           O   |
+          /|\  |
+          / \  |
+               |
+        ---------
+        """
+    ]
+    print(etapas[6 - intentos])
+
 def jugar_ahorcado(palabra):
     intentos = 6
     letras_adivinadas = []
@@ -44,6 +112,7 @@ def jugar_ahorcado(palabra):
         print("\nPalabra:", " ".join(palabra_oculta))
         print("Letras adivinadas:", " ".join(letras_adivinadas))
         print(f"Intentos restantes: {intentos}")
+        mostrar_ahorcado(intentos)
         
         letra = input("Ingresa una letra: ").lower()
         
@@ -63,6 +132,7 @@ def jugar_ahorcado(palabra):
             return
     
     print(f"\nLo siento, has perdido. La palabra era: {palabra}")
+    mostrar_ahorcado(intentos)
 
 def modo_versus():
     jugador1 = solicitar_nombre_jugador()
