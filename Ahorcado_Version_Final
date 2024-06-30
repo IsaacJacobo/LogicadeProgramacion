@@ -1,0 +1,107 @@
+import random
+
+def mostrar_menu_principal():
+print("Bienvenido al Juego del Ahorcado")
+print("Selecciona el modo de juego:")
+print("1. Adivinar Palabras")
+print("2. Modo Versus")
+print("3. Cómo jugar")
+opcion = input("Ingresa el número de tu elección: ")
+return opcion
+
+def seleccionar_nivel_dificultad():
+print("Selecciona el nivel de dificultad:")
+print("1. Fácil")
+print("2. Medio")
+print("3. Difícil")
+nivel = input("Ingresa el número de tu elección: ")
+return nivel
+
+def solicitar_nombre_jugador():
+nombre = input("Ingresa tu nombre: ")
+return nombre
+
+def obtener_palabra(nivel):
+palabras_faciles = ["gato", "casa", "sol"]
+palabras_medias = ["elefante", "computadora", "avion"]
+palabras_dificiles = ["electroencefalografista", "esternocleidomastoideo", "anticonstitucionalidad"]
+
+if nivel == "1":
+    return random.choice(palabras_faciles)
+elif nivel == "2":
+    return random.choice(palabras_medias)
+elif nivel == "3":
+    return random.choice(palabras_dificiles)
+else:
+    return None
+def jugar_ahorcado(palabra):
+intentos = 6
+letras_adivinadas = []
+palabra_oculta = ["_"] * len(palabra)
+
+while intentos > 0 and "_" in palabra_oculta:
+    print("\nPalabra:", " ".join(palabra_oculta))
+    print("Letras adivinadas:", " ".join(letras_adivinadas))
+    print(f"Intentos restantes: {intentos}")
+    
+    letra = input("Ingresa una letra: ").lower()
+    
+    if letra in letras_adivinadas:
+        print("Ya has adivinado esa letra.")
+    elif letra in palabra:
+        letras_adivinadas.append(letra)
+        for i, char in enumerate(palabra):
+            if char == letra:
+                palabra_oculta[i] = letra
+    else:
+        letras_adivinadas.append(letra)
+        intentos -= 1
+    
+    if "_" not in palabra_oculta:
+        print(f"\n¡Felicidades! Has adivinado la palabra: {palabra}")
+        return
+
+print(f"\nLo siento, has perdido. La palabra era: {palabra}")
+def modo_versus():
+jugador1 = solicitar_nombre_jugador()
+jugador2 = solicitar_nombre_jugador()
+
+print(f"{jugador1}, ingresa una palabra para que {jugador2} la adivine:")
+palabra = input().lower()
+
+# Limpiar la consola o crear espacios para que el segundo jugador no vea la palabra
+print("\n" * 50)
+print(f"{jugador2}, es tu turno para adivinar la palabra.")
+jugar_ahorcado(palabra)
+def mostrar_instrucciones():
+print("\nCómo jugar al Ahorcado:")
+print("1. El juego elige una palabra al azar o el jugador 1 la ingresa en modo versus.")
+print("2. Debes adivinar la palabra letra por letra.")
+print("3. Tienes 6 intentos para adivinar todas las letras.")
+print("4. Cada vez que adivines una letra correctamente, se revelará en la palabra.")
+print("5. Si la letra no está en la palabra, perderás un intento.")
+print("6. El juego termina cuando adivinas la palabra completa o se te acaban los intentos.")
+print("7. ¡Buena suerte y diviértete!\n")
+
+def main():
+nombre_jugador = solicitar_nombre_jugador()
+print(f"Hola, {nombre_jugador}!")
+while True:
+opcion = mostrar_menu_principal()
+
+    if opcion == "1":
+        nivel = seleccionar_nivel_dificultad()
+        print(f"{nombre_jugador}, has seleccionado el nivel: {nivel}")
+        palabra = obtener_palabra(nivel)
+        if palabra:
+            jugar_ahorcado(palabra)
+        else:
+            print("Nivel no válido.")
+    elif opcion == "2":
+        modo_versus()
+    elif opcion == "3":
+        mostrar_instrucciones()
+    else:
+        print("Opción no válida")
+if name == "main":
+main()
